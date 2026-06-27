@@ -16,6 +16,24 @@ from core.memory import TokenOptimizer
 from agent.sales_agent import kayfa_sales_agent, AgentDeps
 from motor.motor_asyncio import AsyncIOMotorClient
 
+import streamlit as st
+import os
+from dotenv import load_dotenv
+
+# 1. Load local .env file if it exists (for local testing)
+load_dotenv()
+
+# 2. Force Streamlit Cloud secrets into the OS environment (for production)
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+    if "GEMINI_API_KEY" in st.secrets:
+        os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+    if "MONGO_URI" in st.secrets:
+        os.environ["MONGO_URI"] = st.secrets["MONGO_URI"]
+except FileNotFoundError:
+    pass # Ignore if there is no secrets file (local environment)
+
 st.set_page_config(page_title="Kayfa AI | Sales Agent", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
