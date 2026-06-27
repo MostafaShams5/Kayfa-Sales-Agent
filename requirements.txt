@@ -1,0 +1,17 @@
+# Web Framework & Data
+streamlit>=1.35.0
+pandas>=2.0.0
+plotly>=5.18.0
+
+# AI & Agent Frameworks
+pydantic-ai>=0.0.14
+groq>=0.4.0
+google-genai>=0.1.0
+
+# Database (Async MongoDB)
+motor>=3.3.2
+
+# Utilities (Assuming these are in your validators.py)
+phonenumbers>=8.13.0
+email-validator>=2.1.0
+python-dotenv>=1.0.1

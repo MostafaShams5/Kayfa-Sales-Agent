@@ -1,0 +1,942 @@
+[
+  {
+    "id": "business_statistics",
+    "name": "Business Statistics",
+    "track": [
+      "data_science",
+      "data_analysis"
+    ],
+    "summary": "A comprehensive course covering business statistics including descriptive statistics, probability, inferential statistics, regression analysis, and hypothesis testing. Taught by Prof. Mostafa Elhosseini.",
+    "link": "https://kayfa.io/courses/business-statistics-for-data-science",
+    "duration": "12 hours 38 minutes",
+    "level": "intermediate",
+    "prerequisites": "Basic math knowledge",
+    "roadmaps": [
+      "data_science_track",
+      "data_analysis_track"
+    ],
+    "price": 65.0,
+    "currency": "USD",
+    "instructor": "Prof. Mostafa Elhosseini",
+    "is_free": false
+  },
+  {
+    "id": "ms_sql_server_programming",
+    "name": "MS SQL Server Programming",
+    "track": [
+      "data_science",
+      "data_analysis",
+      "backend"
+    ],
+    "summary": "Deep dive into MS SQL Server including writing queries, stored procedures, and managing enterprise data. Taught by Hagar Ibrahiem.",
+    "link": "https://kayfa.io/courses/sql-server-programming-for-data-science",
+    "duration": "10 hours 3 minutes",
+    "level": "intermediate",
+    "prerequisites": "Basic understanding of databases",
+    "roadmaps": [
+      "data_science_track",
+      "data_analysis_track",
+      "web_development_track"
+    ],
+    "price": 35.0,
+    "currency": "USD",
+    "instructor": "Hagar Ibrahiem",
+    "is_free": false
+  },
+  {
+    "id": "data_visualization_power_bi",
+    "name": "Data Visualization by Power BI",
+    "track": [
+      "data_science",
+      "data_analysis"
+    ],
+    "summary": "Learn to build professional dashboards with Power BI, covering data modeling, DAX formulas, and interactive visualizations. Taught by Eman Raslan.",
+    "link": "https://kayfa.io/courses/data-visualization-by-power-bi-for-data-science",
+    "duration": "6 hours 13 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_science_track",
+      "data_analysis_track"
+    ],
+    "price": 30.0,
+    "currency": "USD",
+    "instructor": "Eman Raslan",
+    "is_free": false
+  },
+  {
+    "id": "network_security_fundamentals",
+    "name": "Network and Security Fundamentals",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "Covers network security fundamentals including the OSI model, subnetting, firewalls, and core security concepts. Taught by Ahmed Shalaby.",
+    "link": "https://kayfa.io/courses/network-and-security-fundamentals",
+    "duration": "4 hours 48 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": 30.0,
+    "currency": "USD",
+    "instructor": "Ahmed Shalaby",
+    "is_free": false
+  },
+  {
+    "id": "html",
+    "name": "HTML",
+    "track": [
+      "web_development",
+      "frontend"
+    ],
+    "summary": "A complete course on HTML covering structure, elements, forms, semantic HTML, and best practices for building web pages. Taught by Mohamed Ali.",
+    "link": "https://kayfa.io/courses/html",
+    "duration": "5 hours 12 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "web_development_track",
+      "frontend_track"
+    ],
+    "price": 30.0,
+    "currency": "USD",
+    "instructor": "Mohamed Ali",
+    "is_free": false
+  },
+  {
+    "id": "fundamentals_graphic_design",
+    "name": "Fundamentals of Graphic Design",
+    "track": [
+      "graphic_design",
+      "creative_arts"
+    ],
+    "summary": "Introduction to graphic design fundamentals covering design principles, color theory, typography, and layout. Taught by Heba Hashem Abdeen.",
+    "link": "https://kayfa.io/courses/fundamentals-of-graphic-design",
+    "duration": "2 hours 35 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "graphics_motion_track"
+    ],
+    "price": 30.0,
+    "currency": "USD",
+    "instructor": "Heba Hashem Abdeen",
+    "is_free": false
+  },
+  {
+    "id": "windows_active_directory",
+    "name": "Microsoft Windows Active Directory",
+    "track": [
+      "cybersecurity",
+      "soc",
+      "system_administration"
+    ],
+    "summary": "Comprehensive training on Windows Active Directory including Group Policy Objects (GPO), user management, and enterprise directory services. Taught by Abdelbaky Shehata.",
+    "link": "https://kayfa.io/courses/microsoft-windows-active-directory",
+    "duration": "6 hours 21 minutes",
+    "level": "intermediate",
+    "prerequisites": "Basic knowledge of Windows OS",
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": 35.0,
+    "currency": "USD",
+    "instructor": "Abdelbaky Shehata",
+    "is_free": false
+  },
+  {
+    "id": "linux_fundamentals",
+    "name": "Linux Fundamentals",
+    "track": [
+      "cybersecurity",
+      "soc",
+      "system_administration"
+    ],
+    "summary": "Covers Linux command line interface (CLI), file system navigation, permissions, shell scripting, and system administration basics. Taught by Yehia Kandeel.",
+    "link": "https://kayfa.io/courses/linux-fundamentals",
+    "duration": "5 hours 19 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": 40.0,
+    "currency": "USD",
+    "instructor": "Yehia kandeel",
+    "is_free": false
+  },
+  {
+    "id": "splunk_siem_case_studies",
+    "name": "Splunk SIEM Case Studies",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "Advanced Splunk SIEM training through real-world case studies, covering SPL queries, dashboards, and security event analysis. Taught by Motasem Hamdan.",
+    "link": "https://kayfa.io/courses/Splunk Case Studies",
+    "duration": "2 hours 36 minutes",
+    "level": "advanced",
+    "prerequisites": "Basic knowledge of SIEM and Splunk",
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": 50.0,
+    "currency": "USD",
+    "instructor": "Motasem Hamdan",
+    "is_free": false
+  },
+  {
+    "id": "how_ai_chatgpt_work",
+    "name": "How AI & Chat GPT Work",
+    "track": [
+      "artificial_intelligence"
+    ],
+    "summary": "An introductory course explaining how Artificial Intelligence and ChatGPT work, covering AI fundamentals, language models, and practical AI applications. Taught by Mohammad Thabet.",
+    "link": "https://kayfa.io/courses/how-ai-and-chatgpt-works",
+    "duration": "2 hours 1 minute",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "ai_fundamentals_track"
+    ],
+    "price": 20.0,
+    "currency": "USD",
+    "instructor": "Mohammad Thabet",
+    "is_free": false
+  },
+  {
+    "id": "intro_javascript",
+    "name": "Introduction to JavaScript",
+    "track": [
+      "web_development",
+      "frontend"
+    ],
+    "summary": "Fundamentals of JavaScript programming language covering variables, functions, DOM manipulation, events, and modern ES6+ features. Taught by Mohamed Ali.",
+    "link": "https://kayfa.io/courses/javascript",
+    "duration": "2 hours 35 minutes",
+    "level": "beginner",
+    "prerequisites": "Basic knowledge of HTML",
+    "roadmaps": [
+      "web_development_track",
+      "frontend_track"
+    ],
+    "price": 20.0,
+    "currency": "USD",
+    "instructor": "Mohamed Ali",
+    "is_free": false
+  },
+  {
+    "id": "intro_typescript",
+    "name": "Introduction to TypeScript",
+    "track": [
+      "web_development",
+      "frontend"
+    ],
+    "summary": "Learn TypeScript fundamentals including types, interfaces, generics, and how to build type-safe JavaScript applications. Taught by Ahmed Saber.",
+    "link": "https://kayfa.io/courses/introduction-to-typescript-for-full-stack-development",
+    "duration": "2 hours 33 minutes",
+    "level": "beginner",
+    "prerequisites": "Basic knowledge of JavaScript",
+    "roadmaps": [
+      "web_development_track",
+      "frontend_track"
+    ],
+    "price": 20.0,
+    "currency": "USD",
+    "instructor": "Ahmed Saber",
+    "is_free": false
+  },
+  {
+    "id": "intro_marketing",
+    "name": "Introduction to Marketing",
+    "track": [
+      "marketing",
+      "business"
+    ],
+    "summary": "An introductory course covering marketing fundamentals, digital marketing strategies, and marketing principles. Taught by Walid Saed.",
+    "link": "https://kayfa.io/courses/introduction-to-marketing",
+    "duration": "57 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "crash_courses_track"
+    ],
+    "price": 15.0,
+    "currency": "USD",
+    "instructor": "Walid Saed",
+    "is_free": false
+  },
+  {
+    "id": "career_planning",
+    "name": "Career Planning",
+    "track": [
+      "career_development"
+    ],
+    "summary": "A short course on career planning covering CV writing, interview preparation, and career path strategies. Taught by Mariam Elgaby.",
+    "link": "https://kayfa.io/courses/career-planning",
+    "duration": "18 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "crash_courses_track"
+    ],
+    "price": 15.0,
+    "currency": "USD",
+    "instructor": "Mariam Elgaby",
+    "is_free": false
+  },
+  {
+    "id": "python_basics_ds",
+    "name": "Python Basics for Data Science",
+    "track": [
+      "data_science",
+      "programming"
+    ],
+    "summary": "Deep dive into Python programming for data science including data structures, OOP concepts, and working with libraries like Pandas and NumPy.",
+    "link": "https://kayfa.io/courses/python-basics-for-data-science",
+    "duration": "8 hours",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "data_analysis_python_ds",
+    "name": "Data Analysis Using Python for Data Science",
+    "track": [
+      "data_science"
+    ],
+    "summary": "Learn data cleaning, scraping, and analysis using Python with Pandas and NumPy. Covers real-world data analysis workflows.",
+    "link": "https://kayfa.io/courses/data-analysis-using-python-for-data-science",
+    "duration": "6 hours",
+    "level": "intermediate",
+    "prerequisites": "Python Basics",
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "machine_learning_ds",
+    "name": "Machine Learning and Predictive Modeling for Data Science",
+    "track": [
+      "data_science",
+      "machine_learning"
+    ],
+    "summary": "Build predictive models using Supervised and Unsupervised learning, Neural Networks, and Regression algorithms for data science applications.",
+    "link": "https://kayfa.io/courses/machine-learning-and-predective-modeling-for-data-science",
+    "duration": "10 hours",
+    "level": "advanced",
+    "prerequisites": "Python Basics, Data Analysis, Statistics",
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "intro_data_science",
+    "name": "Introduction to Data Science",
+    "track": [
+      "data_science"
+    ],
+    "summary": "Introduction to the field of data science covering key concepts, tools, and career paths. Taught by Osama Salem (CEO of Etica Technology).",
+    "link": "https://kayfa.io/courses/introduction-to-data-science",
+    "duration": "10 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Osama Salem (CEO of Etica Technology)",
+    "is_free": true
+  },
+  {
+    "id": "advanced_excel_ds",
+    "name": "Advanced Excel for Data Science",
+    "track": [
+      "data_science",
+      "data_analysis"
+    ],
+    "summary": "Advanced Excel skills including Pivot Tables, DAX formulas, and Power Query for data analysis and business intelligence.",
+    "link": "https://kayfa.io/courses/advanced-excel-for-data-science-n",
+    "duration": "5 hours",
+    "level": "intermediate",
+    "prerequisites": "Basic Excel knowledge",
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "ds_career_development",
+    "name": "Data Science Career Development",
+    "track": [
+      "data_science",
+      "career_development"
+    ],
+    "summary": "Professional skills module covering CV writing, interview simulations, and career path planning specifically for data science careers.",
+    "link": "https://kayfa.io/courses/data-science-career-development",
+    "duration": "2 hours",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "ds_career_center",
+    "name": "Data Science Career Center",
+    "track": [
+      "data_science",
+      "career_development"
+    ],
+    "summary": "Career center resources and guidance for data science professionals including portfolio building and job placement support.",
+    "link": "https://kayfa.io/courses/data-science-career-center",
+    "duration": "1 hour",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "ds_final_project",
+    "name": "Final Project for Data Science",
+    "track": [
+      "data_science"
+    ],
+    "summary": "Capstone project for the Data Science track where students solve real business problems and build their professional portfolio.",
+    "link": "https://kayfa.io/courses/Final-Project-for-data-science",
+    "duration": "5 hours",
+    "level": "advanced",
+    "prerequisites": "Completion of Data Science track courses",
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "all_about_ds_live",
+    "name": "Live Session - All About Data Science",
+    "track": [
+      "data_science"
+    ],
+    "summary": "Live interactive sessions covering all aspects of data science. 9 videos, 3 hours 19 minutes of content. Taught by Osama Salem.",
+    "link": "https://kayfa.io/courses/all-about-data-science-live-session",
+    "duration": "3 hours 19 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_science_track"
+    ],
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Osama Salem",
+    "is_free": true
+  },
+  {
+    "id": "intro_soc",
+    "name": "Introduction to SOC Analysis and Management",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "Introduction to Security Operations Center analysis and management, covering the Cyber Kill Chain, Incident Response lifecycles, and defensive operations.",
+    "link": "https://kayfa.io/courses/introduction-to-soc-analysis-and-management",
+    "duration": "4 hours",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "splunk_siem",
+    "name": "Splunk SIEM",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "Deep dive into Splunk SIEM covering SPL queries, dashboards, security event correlation, and alerting for Security Operations Centers.",
+    "link": "https://kayfa.io/courses/splunk-siem",
+    "duration": "6 hours",
+    "level": "intermediate",
+    "prerequisites": "SOC Fundamentals, Network Security",
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "qradar",
+    "name": "IBM QRadar",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "Comprehensive IBM QRadar training covering AQL queries, offense management, and SIEM operations for enterprise security monitoring.",
+    "link": "https://kayfa.io/courses/QRadar",
+    "duration": "5 hours",
+    "level": "intermediate",
+    "prerequisites": "SOC Fundamentals",
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "css",
+    "name": "CSS",
+    "track": [
+      "web_development",
+      "frontend"
+    ],
+    "summary": "Complete CSS course covering selectors, layout (Flexbox, Grid), responsive design, animations, and modern CSS techniques.",
+    "link": "https://kayfa.io/courses/css",
+    "duration": "5 hours",
+    "level": "beginner",
+    "prerequisites": "HTML",
+    "roadmaps": [
+      "web_development_track",
+      "frontend_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "ecmascript_modern_js",
+    "name": "ECMAScript and Modern JavaScript",
+    "track": [
+      "web_development",
+      "frontend"
+    ],
+    "summary": "Advanced JavaScript covering ES6+ features including arrow functions, destructuring, async/await, modules, and modern development patterns.",
+    "link": "https://kayfa.io/courses/ecmascript-and-modern-javascript-for-fullstack-development",
+    "duration": "4 hours",
+    "level": "intermediate",
+    "prerequisites": "Introduction to JavaScript",
+    "roadmaps": [
+      "web_development_track",
+      "frontend_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "intro_oop_csharp",
+    "name": "Introduction to Object Oriented Programming (OOP) using C#",
+    "track": [
+      "web_development",
+      "backend"
+    ],
+    "summary": "Learn OOP principles using C# including classes, inheritance, polymorphism, interfaces, and design patterns.",
+    "link": "https://kayfa.io/courses/introduction-to-object-oriented-programming-oop-using-c-sharp",
+    "duration": "5 hours",
+    "level": "intermediate",
+    "prerequisites": "Basic programming knowledge",
+    "roadmaps": [
+      "web_development_track",
+      "backend_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "db_fundamentals_dotnet",
+    "name": "Fundamentals of Database for .NET Full Stack Development",
+    "track": [
+      "web_development",
+      "backend"
+    ],
+    "summary": "Database fundamentals for .NET developers covering relational database design, Entity Framework, and database operations.",
+    "link": "https://kayfa.io/courses/fundamentals-of-database-for-dot-net-full-stack-development",
+    "duration": "4 hours",
+    "level": "intermediate",
+    "prerequisites": "OOP using C#",
+    "roadmaps": [
+      "web_development_track",
+      "backend_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "fundamentals_motion_graphics",
+    "name": "Fundamentals of Motion Graphics",
+    "track": [
+      "creative_arts",
+      "motion_graphics"
+    ],
+    "summary": "Introduction to motion graphics covering animation principles, After Effects basics, and creating animated compositions.",
+    "link": "https://kayfa.io/courses/fundamentals-of-motion-graphics",
+    "duration": "3 hours 39 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "graphics_motion_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "capcut_video_editing",
+    "name": "CapCut Video Editing",
+    "track": [
+      "creative_arts",
+      "video_editing"
+    ],
+    "summary": "Learn video editing using CapCut including cutting, transitions, effects, text overlays, and exporting professional videos.",
+    "link": "https://kayfa.io/courses/CapCut",
+    "duration": "6 hours 8 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "video_editing_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "python_basics_da",
+    "name": "Python Basics for Data Analysis",
+    "track": [
+      "data_analysis",
+      "programming"
+    ],
+    "summary": "Python programming fundamentals tailored for data analysis, covering data structures, libraries, and practical data manipulation.",
+    "link": "https://kayfa.io/courses/python-basics-for-data-analysis",
+    "duration": "8 hours",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_analysis_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "intro_data_analysis",
+    "name": "Introduction to Data Analysis",
+    "track": [
+      "data_analysis"
+    ],
+    "summary": "Introduction to data analysis concepts, methodologies, and tools used in the field.",
+    "link": "https://kayfa.io/courses/introduction-to-data-analysis",
+    "duration": "1 hour",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "data_analysis_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "data_analysis_python",
+    "name": "Data Analysis Using Python",
+    "track": [
+      "data_analysis"
+    ],
+    "summary": "Practical data analysis using Python with Pandas and NumPy, covering data cleaning, transformation, and exploratory data analysis.",
+    "link": "https://kayfa.io/courses/data-analysis-using-python",
+    "duration": "6 hours",
+    "level": "intermediate",
+    "prerequisites": "Python Basics",
+    "roadmaps": [
+      "data_analysis_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "da_final_project",
+    "name": "Final Project for Data Analysis",
+    "track": [
+      "data_analysis"
+    ],
+    "summary": "Capstone project for the Data Analysis track where students apply their skills to solve real business analysis problems.",
+    "link": "https://kayfa.io/courses/Final-Project-for-data-analysis",
+    "duration": "5 hours",
+    "level": "intermediate",
+    "prerequisites": "Completion of Data Analysis track courses",
+    "roadmaps": [
+      "data_analysis_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "ai_tools",
+    "name": "Artificial Intelligence Tools",
+    "track": [
+      "artificial_intelligence"
+    ],
+    "summary": "Exploration of modern AI tools and platforms, covering practical applications of AI technologies in various domains.",
+    "link": "https://kayfa.io/courses/artificial-intelligence-tools",
+    "duration": "3 hours",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "ai_fundamentals_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "python_basics_ai",
+    "name": "Python Basics for AI",
+    "track": [
+      "artificial_intelligence",
+      "programming"
+    ],
+    "summary": "Python programming fundamentals tailored for AI development, covering essential libraries and programming patterns used in AI.",
+    "link": "https://kayfa.io/courses/python-basics-for-AI-c4cd2ac875",
+    "duration": "8 hours",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": [
+      "ai_fundamentals_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  },
+  {
+    "id": "soc_tips",
+    "name": "SOC Tips",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "35 short videos with tips and tricks for Security Operations Center analysts. Covers monitoring, analysis techniques, and best practices.",
+    "link": "https://kayfa.io/tracks/soc-tips",
+    "duration": "1 hour 18 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Security Operations Center (SOC)",
+    "is_free": true
+  },
+  {
+    "id": "programming_tips",
+    "name": "Programming Tips",
+    "track": [
+      "programming"
+    ],
+    "summary": "30 short videos covering programming tips, tricks, and best practices including HTML, CSS, and JavaScript tips.",
+    "link": "https://kayfa.io/tracks/programming-tips",
+    "duration": "1 hour",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Programming",
+    "is_free": true
+  },
+  {
+    "id": "ai_tips",
+    "name": "AI Tips",
+    "track": [
+      "artificial_intelligence"
+    ],
+    "summary": "5 short videos covering tips on AI tools and concepts including practical applications of AI and ChatGPT.",
+    "link": "https://kayfa.io/tracks/ai-tips",
+    "duration": "5 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Artificial Intelligence",
+    "is_free": true
+  },
+  {
+    "id": "data_science_tips",
+    "name": "Data Science Tips",
+    "track": [
+      "data_science"
+    ],
+    "summary": "4 short videos covering data science tips including Excel for data analysis and statistics fundamentals.",
+    "link": "https://kayfa.io/tracks/data-science-tips",
+    "duration": "3 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Data Science",
+    "is_free": true
+  },
+  {
+    "id": "general_courses_tips",
+    "name": "General Courses Tips",
+    "track": [
+      "general"
+    ],
+    "summary": "4 short videos covering general educational tips including marketing introduction tips.",
+    "link": "https://kayfa.io/tracks/general-courses-tips",
+    "duration": "4 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "General Topics",
+    "is_free": true
+  },
+  {
+    "id": "qradar_tips",
+    "name": "QRadar Professional Pathway Tips",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "6 short videos covering QRadar SIEM tips and professional pathway guidance. Taught by Hatem Metwally.",
+    "link": "https://kayfa.io/courses/soc-monitoring-using-qradar-tips",
+    "duration": "19 minutes",
+    "level": "intermediate",
+    "prerequisites": "Basic SIEM knowledge",
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Hatem Metwally (Information Security Consultant)",
+    "is_free": true
+  },
+  {
+    "id": "network_security_tips",
+    "name": "Network and Security Fundamentals Tips",
+    "track": [
+      "cybersecurity"
+    ],
+    "summary": "7 short videos covering network and security fundamentals tips. Taught by Ahmed Shalaby.",
+    "link": "https://kayfa.io/courses/network-and-security-fundamentals-tips",
+    "duration": "8 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Ahmed Shalaby (Senior Cyber Security Engineer)",
+    "is_free": true
+  },
+  {
+    "id": "html_tips",
+    "name": "HTML Tips",
+    "track": [
+      "web_development",
+      "frontend"
+    ],
+    "summary": "8 short videos covering HTML tips and best practices. Taught by Mohamed Ali.",
+    "link": "https://kayfa.io/courses/html_Tips",
+    "duration": "8 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Mohamed Ali (Full-Stack Web Developer)",
+    "is_free": true
+  },
+  {
+    "id": "free_sessions",
+    "name": "Free Sessions",
+    "track": [
+      "general"
+    ],
+    "summary": "45 free live sessions on various topics including data science, career development, and technology trends. 12 hours 5 minutes of content.",
+    "link": "https://kayfa.io/tracks/Free Sessions19",
+    "duration": "12 hours 5 minutes",
+    "level": "beginner",
+    "prerequisites": null,
+    "roadmaps": null,
+    "price": 0.0,
+    "currency": "USD",
+    "instructor": "Various Topics",
+    "is_free": true
+  },
+  {
+    "id": "live_session_soc",
+    "name": "Live Session - SOC",
+    "track": [
+      "cybersecurity",
+      "soc"
+    ],
+    "summary": "Live interactive session covering SOC analysis topics, tools, and practical security scenarios.",
+    "link": "https://kayfa.io/courses/Live Session-SOC",
+    "duration": "2 hours",
+    "level": "intermediate",
+    "prerequisites": "SOC Fundamentals",
+    "roadmaps": [
+      "soc_track"
+    ],
+    "price": null,
+    "currency": "USD",
+    "instructor": null,
+    "is_free": null
+  }
+]

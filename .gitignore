@@ -1,0 +1,14 @@
+# Virtual Environments
+common_env/
+venv/
+env/
+.venv/
+
+# Environment Variables & Secrets
+.env
+.streamlit/secrets.toml
+
+# Python Cache
+__pycache__/
+*.pyc
+.pytest_cache/

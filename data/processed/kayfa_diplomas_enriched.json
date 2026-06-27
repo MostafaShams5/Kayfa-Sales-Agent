@@ -1,0 +1,107 @@
+[
+  {
+    "id": "data_science_diploma",
+    "name": "Product: Data Science Track by Kayfa",
+    "pitch": "A rigorous 5-month hybrid program designed to transform beginners into professional Data Scientists through a blend of flexible learning and live, interactive mentorship.",
+    "curriculum_highlights": [
+      "**Data Mastery with Python:** Deep dive into cleaning, scraping, and analysis using Pandas, NumPy, and OOP concepts.",
+      "**Business Intelligence & SQL:** Build professional dashboards with **Power BI** and manage enterprise data using **MS SQL Server** (queries, stored procedures).",
+      "**Advanced Analytics:** Go beyond basics with **Advanced Excel** (Pivot Tables, DAX, Power Query) and Business Statistics.",
+      "**Machine Learning:** Build predictive models using Supervised/Unsupervised learning, Neural Networks, and Regression algorithms.",
+      "**Applied Experience:** Students solve real business problems through 2 major Capstone Projects and continuous hands-on workshops."
+    ],
+    "career_growth": [
+      "**Global Readiness:** Includes a placement test and tailored **Business English** training to prepare for international roles.",
+      "**Career Launchpad:** A dedicated \"Professional Skills\" module covers CV writing, interview simulations, and career path planning.",
+      "**Holistic Support:** Continuous guidance to ensure students are not just coders, but problem solvers."
+    ],
+    "trust_signals": [
+      "**Triple Certification:** Graduates receive a Kayfa certificate, with options for international accreditation from the **University of Delaware** and **Leeds Academy**.",
+      "**Proven Quality:** A community of 15,000+ learners and 30+ expert instructors (e.g., Mustafa Othman).",
+      "**Industry Partners:** Curriculum aligned with market needs, backed by partners like Microsoft and GIZ.",
+      "**Closing Value:** \"From raw data to decision-making models—this track equips you with the complete toolkit used by top companies today.\""
+    ],
+    "closing_value": "From raw data to decision-making models—this track equips you with the complete toolkit used by top companies today."
+  },
+  {
+    "id": "soc_diploma",
+    "name": "Product: SOC Track by Kayfa",
+    "pitch": "A specialized 5-month hybrid program designed to forge battle-ready SOC Analysts through intense hands-on training with industry-standard SIEM tools and real-world attack simulations.",
+    "curriculum_highlights": [
+      "**Core Infrastructure:** Mastery of Network Security (OSI, Subnetting, Firewalls) and OS Administration (Linux CLI & Windows Active Directory/GPO).",
+      "**SIEM Mastery:** Deep dive into the market leaders: **Splunk** (SPL queries, Dashboards) and **IBM QRadar** (AQL, Offense Management).",
+      "**Defensive Operations:** Comprehensive training on the Cyber Kill Chain, Incident Response lifecycles, and proactive **Threat Hunting**.",
+      "**Forensics & Analysis:** Introduction to Digital Forensics (Memory/Disk analysis) and handling Chain of Custody.",
+      "**War Room Experience:** Students tackle real scenarios like Ransomware analysis and \"Boss of the SOC\" (BOTS) challenges in 2 major Capstone Projects."
+    ],
+    "career_growth": [
+      "**Global Readiness:** tailored **English for Business** training to prepare for international security roles.",
+      "**Career Launchpad:** A dedicated \"Professional Skills\" module covers CV optimization, technical interview prep, and career pathing.",
+      "**Soft Skills:** Focus on communication and reporting—critical for explaining breaches to stakeholders."
+    ],
+    "trust_signals": [
+      "**Triple Certification:** Graduates receive a Kayfa certificate, with options for international accreditation from the **University of Delaware** and **Leeds Academy**.",
+      "**Expert Mentorship:** Learn from practitioners like Dr. Abdelrahman and top industry veterans.",
+      "**Proven Track Record:** Joined by 15,000+ learners; curriculum aligned with global market demands.",
+      "**Closing Value:** \"From monitoring logs to hunting threats—this track builds the exact skill set required to defend modern enterprises.\""
+    ],
+    "closing_value": "From monitoring logs to hunting threats—this track builds the exact skill set required to defend modern enterprises."
+  },
+  {
+    "id": "ai_diploma",
+    "name": "Product: AI Track by Kayfa",
+    "pitch": "A comprehensive 5-month interactive live program designed to transform learners into job-ready AI Engineers through rigorous practice and expert mentorship.",
+    "curriculum_highlights": [
+      "**Next-Gen AI:** Mastering Generative AI (GANs, VAEs), Prompt Engineering, and RAG (Retrieval-Augmented Generation).",
+      "**Advanced Systems:** Building autonomous AI Agents, Decision Systems, and Reinforcement Learning.",
+      "**Core Fundamentals:** Deep Learning, Computer Vision (CNNs), and NLP (Transformers/BERT).",
+      "**Production Skills (MLOps):** Deployment using Docker, CI/CD pipelines, and model management with MLflow/DVC.",
+      "**Real-World Application:** Students build a professional portfolio with complex Capstone Projects and Case Studies."
+    ],
+    "career_growth": [
+      "**Business English:** Tailored language training (General or Business level) for the global tech market.",
+      "**Soft Skills & Prep:** specialized coaching on CV writing, interview simulations, and career path planning.",
+      "**Holistic Approach:** We don't just teach code; we build professional character."
+    ],
+    "trust_signals": [
+      "**Dual Accreditation:** Graduates earn a Kayfa certificate with options for international accreditation from **University of Delaware** and **Leeds Academy**.",
+      "**Proven Impact:** Trusted by 15,000+ learners and partners like Microsoft, GIZ, and Paymob.",
+      "**Expert Access:** Direct mentorship and code reviews from industry veterans (e.g., Dr. Karim).",
+      "**Closing Value:** \"This is not just a course; it is a full career transformation backed by international recognition.\""
+    ],
+    "closing_value": "This is not just a course; it is a full career transformation backed by international recognition."
+  },
+  {
+    "id": "fullstack_diploma",
+    "name": "Fullstack Development Diploma",
+    "pitch": "",
+    "curriculum_highlights": [],
+    "career_growth": [
+      "**Eligible roles:** Junior Full Stack Developer · Frontend Developer · Backend Developer ·"
+    ],
+    "trust_signals": [],
+    "closing_value": ""
+  },
+  {
+    "id": "pentest_diploma",
+    "name": "🔴 Product: Penetration Testing & Ethical Hacking Track by Kayfa",
+    "pitch": "A certified 48-hour offensive security program that takes complete beginners and builds them into job-ready Junior Penetration Testers — through 100% hands-on lab execution using the same tools and methodologies as professional red teams worldwide.",
+    "curriculum_highlights": [
+      "**Legal & Ethical Foundations:** Cybercrime law, ethical hacking principles, Rules of Engagement (ROE) documentation, and the 5-phase penetration testing methodology.",
+      "**Linux & CLI Mastery:** Full filesystem navigation, user/permission management (chmod/chown), log analysis with grep/awk, and Bash scripting for task automation.",
+      "**Network & Traffic Analysis:** Deep dive into TCP/IP, DNS, HTTP protocols; live packet capture and PCAP analysis using **Wireshark**; understanding attacks at the packet level.",
+      "**Reconnaissance & Enumeration:** OSINT and passive recon, live host discovery and port scanning with **Nmap**, service enumeration, banner grabbing, and full attack surface mapping.",
+      "**Web Application Security:** HTTP anatomy, session management, **Burp Suite** (Proxy & Repeater), and exploitation of SQL Injection, XSS, and IDOR vulnerabilities.",
+      "**Exploitation & Password Attacks:** Brute-forcing SSH/FTP with **Hydra**, hash cracking with **Hashcat** and **John the Ripper**, and working with the RockYou wordlist.",
+      "**Post-Exploitation:** Linux privilege escalation methodology, SUID/SGID misconfiguration abuse, Cron job exploitation, and automated enumeration with **LinPEAS**.",
+      "**Professional Reporting:** Writing executive summaries, CVSS-based risk scoring, reproduction steps, and remediation recommendations — the #1 career differentiator."
+    ],
+    "career_growth": [
+      "**Direct Job Targets:** Junior Penetration Tester, SOC Tier-1 Analyst, Vulnerability Assessment Analyst, Web Application Security Tester, and Freelance Bug Bounty Hunter (HackerOne / Bugcrowd / Intigriti).",
+      "**Certification Pathway:** Graduates are primed for eJPT, CompTIA Security+, PNPT, CEH, and ultimately OSCP — unlocking senior red team and consulting roles.",
+      "**Portfolio-Ready Output:** Students leave with a real penetration test report they can show employers — the strongest possible proof of skill at the junior level."
+    ],
+    "trust_signals": [],
+    "closing_value": "Stop watching hacking tutorials — start executing real attacks in a legal lab. Kayfa gives you the tools, the mentor, the lab, and the report to land your first offensive security role."
+  }
+]
