@@ -8,8 +8,8 @@ We overhauled the system to focus heavily on cost reduction, extreme observabili
 
 ### 1. Granular Cost Tracking & Telemetry
 Complete visibility into every fraction of a cent spent. 
-* **Per-Turn Pricing:** The Behavior & Trace Monitor now groups interactions by session, showing the exact dollar cost of every single message, alongside the total session and total user spend.
-* **Tool Transparency:** The trace monitor captures and displays the exact arguments passed to tools and the raw data returned, making debugging and auditing instant.
+* **Per-Session Pricing:** The Behavior & Trace Monitor now groups interactions by session, showing the exact dollar cost of every single message, alongside the total session and total user spend.
+* **Tool Output:** The trace monitor captures and displays the exact arguments passed to tools and the raw data returned, making debugging and auditing instant.
 
 ### 2. Radical Cost Reduction
 * **Semantic Caching:** Integrated a vector-based Semantic Cache. If a user asks a similar question, the system intercepts the request and serves the cached response, dropping LLM inference costs to zero for that turn.
