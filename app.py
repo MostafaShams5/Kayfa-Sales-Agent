@@ -314,7 +314,6 @@ def page_chat():
                     latency_ms=latency_ms,
                     tools_called=tools_called
                 ))
-
 def page_admin_trace():
     render_welcome_banner()
     st.title("Behavior & Trace Monitor (Monitor B)")
