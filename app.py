@@ -15,15 +15,10 @@ from core.telemetry import TelemetryLogger
 from core.memory import TokenOptimizer
 from agent.sales_agent import kayfa_sales_agent, AgentDeps
 from motor.motor_asyncio import AsyncIOMotorClient
-
-import streamlit as st
-import os
 from dotenv import load_dotenv
 
-# 1. Load local .env file if it exists (for local testing)
 load_dotenv()
 
-# 2. Force Streamlit Cloud secrets into the OS environment (for production)
 try:
     if "GROQ_API_KEY" in st.secrets:
         os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
@@ -32,7 +27,7 @@ try:
     if "MONGO_URI" in st.secrets:
         os.environ["MONGO_URI"] = st.secrets["MONGO_URI"]
 except FileNotFoundError:
-    pass # Ignore if there is no secrets file (local environment)
+    pass 
 
 st.set_page_config(page_title="Kayfa AI | Sales Agent", layout="wide", initial_sidebar_state="expanded")
 
@@ -197,8 +192,13 @@ def page_chat():
         st.markdown("### Profile Navigation")
         
         past_sessions = run_async(raw_db["usage_logs"].distinct("session_id", {"user_id": st.session_state.user_id}))
+        
+        display_map = {"Current Session": "Current Session"}
+        for i, s in enumerate(past_sessions):
+            display_map[s] = f"Session {i+1} ({s[:6]})"
+            
         session_options = ["Current Session"] + past_sessions
-        selected_session = st.selectbox("Select Conversation History", session_options, index=0)
+        selected_session = st.selectbox("Select Conversation History", session_options, index=0, format_func=lambda x: display_map[x])
         
         if selected_session != "Current Session" and st.session_state.session_id != selected_session:
             st.session_state.session_id = selected_session
@@ -314,6 +314,114 @@ def page_chat():
                     latency_ms=latency_ms,
                     tools_called=tools_called
                 ))
+
+def page_admin_crm():
+    render_welcome_banner()
+    st.title("CRM Leads Management Table")
+    leads = run_async(raw_db["leads"].find().sort("التاريخ", -1).to_list(length=100))
+    
+    if leads:
+        df = pd.json_normalize(leads)
+        df = df.drop(columns=["_id"], errors="ignore")
+        placeholders = ["لا يوجد", "", "غير متوفر", "None", "N/A", "لايوجد"]
+        df.replace(placeholders, pd.NA, inplace=True)
+        df = df.dropna(axis=1, how="all")
+        df = df.fillna("")
+        st.dataframe(df, use_container_width=True)
+    else:
+        st.info("No leads captured yet.")
+
+def page_admin_cost():
+    render_welcome_banner()
+    st.title("Cost & Token Analytics (Monitor A)")
+    
+    total_registered_users = run_async(raw_db["users"].count_documents({}))
+    logs = run_async(raw_db["usage_logs"].find().sort("timestamp", 1).to_list(length=10000))
+    
+    if not logs:
+        st.info(f"Total Registered Users: {total_registered_users}. No operational chat data recorded yet.")
+        return
+        
+    df = pd.json_normalize(logs)
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+    
+    start_period = df['timestamp'].min().strftime('%Y-%m-%d %H:%M:%S UTC')
+    end_period = df['timestamp'].max().strftime('%Y-%m-%d %H:%M:%S UTC')
+    
+    st.warning(f"**Analytics Reporting Window:** From {start_period} to {end_period}")
+    
+    total_spend = df['cost_usd.total'].sum()
+    total_tokens = df['metrics.input_tokens'].sum() + df['metrics.output_tokens'].sum() + df['metrics.embed_tokens'].sum()
+    total_conversations = df['session_id'].nunique()
+    active_users = df['user_id'].nunique()
+    
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Platform Spend (Window)", f"${total_spend:.5f}")
+    m2.metric("Total Tokens Processed", f"{total_tokens:,}")
+    m3.metric("Total Conversations", f"{total_conversations}")
+    m4.metric("Active / Registered Users", f"{active_users} / {total_registered_users}")
+    
+    st.divider()
+    
+    st.subheader("High-Volume User Aggregations")
+    user_summary = df.groupby('user_id').agg(
+        Total_Spend=('cost_usd.total', 'sum'),
+        Total_Messages=('session_id', 'count'),
+        LLM_Input_Tokens=('metrics.input_tokens', 'sum'),
+        LLM_Output_Tokens=('metrics.output_tokens', 'sum')
+    ).reset_index().sort_values(by="Total_Spend", ascending=False)
+    
+    user_summary.columns = ["User ID", "Total Spend (USD)", "Total Messages Sent", "Input Tokens Count", "Output Tokens Count"]
+    st.dataframe(user_summary, use_container_width=True, hide_index=True)
+
+def page_admin_estimation():
+    render_welcome_banner()
+    st.title("Dynamic Cost & Scaling Estimation Model")
+    st.markdown("Calculate system resource scaling matrices based on current API execution cost thresholds, incorporating Groq's 50% Prefix Cache discount on static prompts.")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Simulation Parameters")
+        est_mau = st.number_input("Expected Monthly Active Users (MAU)", min_value=1, value=1000, step=100)
+        est_conv = st.number_input("Average Conversations per User / Month", min_value=1.0, value=2.0, step=0.5)
+        est_msg = st.number_input("Average Messages per Conversation", min_value=1.0, value=6.0, step=1.0)
+        
+        st.markdown("##### Token Architecture")
+        static_prefix = st.number_input("Static System Prompt + Tool Schemas (Cached)", min_value=100, value=1021, step=50)
+        dynamic_context = st.number_input("Dynamic Context per Turn (History + RAG)", min_value=100, value=3000, step=500)
+        est_out_tokens = st.number_input("Estimated Output Tokens per Turn", min_value=50, value=350, step=50)
+        cache_hit_rate = st.slider("Target Semantic Cache Hit Rate (%)", min_value=0, max_value=100, value=30)
+        
+    with col2:
+        st.subheader("Financial & Scaling Forecast Matrix")
+        
+        total_monthly_messages = int(est_mau * est_conv * est_msg)
+        uncached_messages = int(total_monthly_messages * (1 - (cache_hit_rate / 100)))
+        
+        total_static_tokens = uncached_messages * static_prefix
+        total_dynamic_tokens = uncached_messages * dynamic_context
+        total_out_tokens = uncached_messages * est_out_tokens
+        
+        total_embed_tokens = total_monthly_messages * (dynamic_context // 4) * 2
+        
+        cost_groq_cached = (total_static_tokens / 1_000_000) * 0.075
+        cost_groq_dynamic = (total_dynamic_tokens / 1_000_000) * 0.15
+        cost_groq_out = (total_out_tokens / 1_000_000) * 0.60
+        cost_gemini_embed = (total_embed_tokens / 1_000_000) * 0.10
+        
+        total_estimated_monthly_spend = cost_groq_cached + cost_groq_dynamic + cost_groq_out + cost_gemini_embed
+        
+        st.metric("Total Projected Monthly Messages", f"{total_monthly_messages:,}")
+        st.metric("Estimated Monthly API Bill", f"${total_estimated_monthly_spend:.2f}")
+        
+        breakdown_data = [
+            {"System Component": "Groq Cached Prefix (System+Tools)", "Tokens": f"{total_static_tokens:,}", "Rate per 1M": "$0.075", "Cost": f"${cost_groq_cached:.4f}"},
+            {"System Component": "Groq Dynamic Input (RAG+History)", "Tokens": f"{total_dynamic_tokens:,}", "Rate per 1M": "$0.150", "Cost": f"${cost_groq_dynamic:.4f}"},
+            {"System Component": "Groq LLM Output (Response)", "Tokens": f"{total_out_tokens:,}", "Rate per 1M": "$0.600", "Cost": f"${cost_groq_out:.4f}"},
+            {"System Component": "Gemini Vector Embeddings", "Tokens": f"{total_embed_tokens:,}", "Rate per 1M": "$0.100", "Cost": f"${cost_gemini_embed:.4f}"}
+        ]
+        st.table(pd.DataFrame(breakdown_data))
+
 def page_admin_trace():
     render_welcome_banner()
     st.title("Behavior & Trace Monitor (Monitor B)")
@@ -387,148 +495,6 @@ def page_admin_trace():
                         st.markdown("---")
                 
                 session_counter += 1
-
-def page_admin_crm():
-    render_welcome_banner()
-    st.title("CRM Leads Management Table")
-    leads = run_async(raw_db["leads"].find().sort("التاريخ", -1).to_list(length=100))
-    
-    if leads:
-        df = pd.json_normalize(leads)
-        df = df.drop(columns=["_id"], errors="ignore")
-        
-        placeholders = ["لا يوجد", "", "غير متوفر", "None", "N/A", "لايوجد"]
-        df.replace(placeholders, pd.NA, inplace=True)
-        
-        df = df.dropna(axis=1, how="all")
-        
-        df = df.fillna("")
-        
-        st.dataframe(df, use_container_width=True)
-    else:
-        st.info("No leads captured yet.")
-
-
-def page_admin_cost():
-    render_welcome_banner()
-    st.title("Cost & Token Analytics (Monitor A)")
-    
-    total_registered_users = run_async(raw_db["users"].count_documents({}))
-    logs = run_async(raw_db["usage_logs"].find().sort("timestamp", 1).to_list(length=10000))
-    
-    if not logs:
-        st.info(f"Total Registered Users: {total_registered_users}. No operational chat data recorded yet.")
-        return
-        
-    df = pd.json_normalize(logs)
-    df['timestamp'] = pd.to_datetime(df['timestamp'])
-    
-    start_period = df['timestamp'].min().strftime('%Y-%m-%d %H:%M:%S UTC')
-    end_period = df['timestamp'].max().strftime('%Y-%m-%d %H:%M:%S UTC')
-    
-    st.warning(f"**Analytics Reporting Window:** From {start_period} to {end_period}")
-    
-    total_spend = df['cost_usd.total'].sum()
-    total_tokens = df['metrics.input_tokens'].sum() + df['metrics.output_tokens'].sum() + df['metrics.embed_tokens'].sum()
-    total_conversations = df['session_id'].nunique()
-    active_users = df['user_id'].nunique()
-    
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Platform Spend (Window)", f"${total_spend:.5f}")
-    m2.metric("Total Tokens Processed", f"{total_tokens:,}")
-    m3.metric("Total Conversations", f"{total_conversations}")
-    m4.metric("Active / Registered Users", f"{active_users} / {total_registered_users}")
-    
-    st.divider()
-    
-    st.subheader("High-Volume User Aggregations")
-    user_summary = df.groupby('user_id').agg(
-        Total_Spend=('cost_usd.total', 'sum'),
-        Total_Messages=('session_id', 'count'),
-        LLM_Input_Tokens=('metrics.input_tokens', 'sum'),
-        LLM_Output_Tokens=('metrics.output_tokens', 'sum')
-    ).reset_index().sort_values(by="Total_Spend", ascending=False)
-    
-    user_summary.columns = ["User ID", "Total Spend (USD)", "Total Messages Sent", "Input Tokens Count", "Output Tokens Count"]
-    st.dataframe(user_summary, use_container_width=True, hide_index=True)
-
-def page_admin_estimation():
-    render_welcome_banner()
-    st.title("Dynamic Cost & Scaling Estimation Model")
-    st.markdown("Calculate system resource scaling matrices based on current API execution cost thresholds, incorporating Groq's 50% Prefix Cache discount on static prompts.")
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("Simulation Parameters")
-        est_mau = st.number_input("Expected Monthly Active Users (MAU)", min_value=1, value=1000, step=100)
-        est_conv = st.number_input("Average Conversations per User / Month", min_value=1.0, value=2.0, step=0.5)
-        est_msg = st.number_input("Average Messages per Conversation", min_value=1.0, value=6.0, step=1.0)
-        
-        st.markdown("##### Token Architecture")
-        static_prefix = st.number_input("Static System Prompt + Tool Schemas (Cached)", min_value=100, value=1021, step=50)
-        dynamic_context = st.number_input("Dynamic Context per Turn (History + RAG)", min_value=100, value=3000, step=500)
-        est_out_tokens = st.number_input("Estimated Output Tokens per Turn", min_value=50, value=350, step=50)
-        cache_hit_rate = st.slider("Target Semantic Cache Hit Rate (%)", min_value=0, max_value=100, value=30)
-        
-    with col2:
-        st.subheader("Financial & Scaling Forecast Matrix")
-        
-        total_monthly_messages = int(est_mau * est_conv * est_msg)
-        uncached_messages = int(total_monthly_messages * (1 - (cache_hit_rate / 100)))
-        
-        # Groq charges 50% less for cached static prefix tokens ($0.075 per 1M)
-        total_static_tokens = uncached_messages * static_prefix
-        total_dynamic_tokens = uncached_messages * dynamic_context
-        total_out_tokens = uncached_messages * est_out_tokens
-        
-        # Embedding vector calculation based on dynamic context size
-        total_embed_tokens = total_monthly_messages * (dynamic_context // 4) * 2
-        
-        cost_groq_cached = (total_static_tokens / 1_000_000) * 0.075
-        cost_groq_dynamic = (total_dynamic_tokens / 1_000_000) * 0.15
-        cost_groq_out = (total_out_tokens / 1_000_000) * 0.60
-        cost_gemini_embed = (total_embed_tokens / 1_000_000) * 0.10
-        
-        total_estimated_monthly_spend = cost_groq_cached + cost_groq_dynamic + cost_groq_out + cost_gemini_embed
-        
-        st.metric("Total Projected Monthly Messages", f"{total_monthly_messages:,}")
-        st.metric("Estimated Monthly API Bill", f"${total_estimated_monthly_spend:.2f}")
-        
-        breakdown_data = [
-            {"System Component": "Groq Cached Prefix (System+Tools)", "Tokens": f"{total_static_tokens:,}", "Rate per 1M": "$0.075", "Cost": f"${cost_groq_cached:.4f}"},
-            {"System Component": "Groq Dynamic Input (RAG+History)", "Tokens": f"{total_dynamic_tokens:,}", "Rate per 1M": "$0.150", "Cost": f"${cost_groq_dynamic:.4f}"},
-            {"System Component": "Groq LLM Output (Response)", "Tokens": f"{total_out_tokens:,}", "Rate per 1M": "$0.600", "Cost": f"${cost_groq_out:.4f}"},
-            {"System Component": "Gemini Vector Embeddings", "Tokens": f"{total_embed_tokens:,}", "Rate per 1M": "$0.100", "Cost": f"${cost_gemini_embed:.4f}"}
-        ]
-        st.table(pd.DataFrame(breakdown_data))
-
-def page_admin_trace():
-    render_welcome_banner()
-    st.title("Behavior & Trace Monitor (Monitor B)")
-    
-    users = run_async(raw_db["users"].find().to_list(length=100))
-    if not users:
-        st.warning("No telemetry profiles isolated.")
-        return
-        
-    tabs = st.tabs([u["username"] for u in users])
-    
-    for idx, user in enumerate(users):
-        with tabs[idx]:
-            logs = run_async(raw_db["usage_logs"].find({"user_id": user["user_id"]}).sort("timestamp", -1).to_list(length=50))
-            if not logs:
-                st.info("No recorded context transitions for this identifier.")
-                continue
-                
-            for log in logs:
-                is_hit = log.get("is_cache_hit", False)
-                title_label = f"⚡ SEMANTIC CACHE HIT | {log['timestamp']}" if is_hit else f"Inference Roundtrip | {log['timestamp']}"
-                
-                with st.expander(f"{title_label} | Allocation: ${log['cost_usd']['total']:.5f}"):
-                    st.markdown(f"**User Prompt:** <div class='rtl-text'>{log['behavior']['prompt_snippet']}</div>", unsafe_allow_html=True)
-                    st.markdown(f"**Agent Generation:** <div class='rtl-text'>{log['behavior']['response_snippet']}</div>", unsafe_allow_html=True)
-                    st.json(log['behavior']['tools_called'])
-                    st.caption(f"Latency: {log['metrics']['latency_ms']:.2f}ms | Hardware Allocation (In / Out / Embed): {log['metrics']['input_tokens']} / {log['metrics']['output_tokens']} / {log['metrics']['embed_tokens']}")
 
 if st.session_state.user_id is None:
     page_auth()
