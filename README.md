@@ -54,7 +54,13 @@ graph TD
     Q --> Z
 ```
 
-## Running the API
+## Interactive Architecture Diagram
+
+The repository includes a beautifully styled, standalone interactive architecture diagram. 
+
+Simply open the `workflow.html` file in any web browser to view the complete execution pipeline, caching mechanisms, and tool routing. You can also view it directly within the Streamlit Admin dashboard under the "System Architecture" tab.
+
+## Running the System
 
 Start the FastAPI server for backend integrations:
 ```bash
@@ -64,3 +70,5 @@ uvicorn api:app --reload --port 8000
 Start the Streamlit Admin & Chat UI:
 ```bash
 streamlit run app.py
+```
+```
