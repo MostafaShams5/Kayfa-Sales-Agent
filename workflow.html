@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayfa AI - Production Workflow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .diagram-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <h2>Kayfa AI Agent - Execution Architecture</h2>
+        <pre class="mermaid">
+            graph TD
+                classDef user fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff,rx:8px,ry:8px;
+                classDef core fill:#f1f5f9,stroke:#cbd5e1,stroke-width:2px,color:#0f172a,rx:8px,ry:8px;
+                classDef llm fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#fff,rx:8px,ry:8px;
+                classDef db fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff,rx:8px,ry:8px;
+                classDef cache fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff,rx:8px,ry:8px;
+
+                A[User Request]:::user --> B{FastAPI / Streamlit Interface}:::core
+                B --> C[Generate Query Embedding]:::core
+                C --> D{Check Semantic Cache}:::cache
+                
+                D -- Cache Hit --> E[Return Cached Response]:::cache
+                E --> F[Log Zero-Cost Turn to Telemetry]:::db
+                F --> Z[Return to User]:::user
+
+                D -- Cache Miss --> G[Retrieve User History RAG]:::core
+                G --> H[Inject System Prompts & Guardrails]:::core
+                H --> I[Pydantic AI Agent via Groq LLM]:::llm
+                
+                I <--> J((Tool Execution)):::core
+                J -.-> K[Knowledge Base Search]:::db
+                J -.-> L[Contact Data Validator]:::core
+                J -.-> M[MongoDB CRM DB]:::db
+                
+                I --> N[Generate Short & Engaging Response]:::llm
+                N --> O[Write to Semantic Cache]:::cache
+                O --> P[Calculate Token & Dollar Cost]:::core
+                P --> Q[Log Full Trace & Cost to Telemetry]:::db
+                Q --> Z:::user
+        </pre>
+    </div>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { fontFamily: 'Segoe UI' } });
+    </script>
+</body>
+</html>
