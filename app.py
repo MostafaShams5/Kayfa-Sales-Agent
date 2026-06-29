@@ -364,6 +364,29 @@ def page_admin_trace():
                                     
                         st.caption(f"Latency: {log['metrics']['latency_ms']:.2f}ms | Tokens (In / Out / Embed): {log['metrics']['input_tokens']} / {log['metrics']['output_tokens']} / {log['metrics']['embed_tokens']}")
                         st.divider()
+
+
+def page_admin_crm():
+    render_welcome_banner()
+    st.title("CRM Leads Management Table")
+    leads = run_async(raw_db["leads"].find().sort("التاريخ", -1).to_list(length=100))
+    
+    if leads:
+        df = pd.json_normalize(leads)
+        df = df.drop(columns=["_id"], errors="ignore")
+        
+        placeholders = ["لا يوجد", "", "غير متوفر", "None", "N/A", "لايوجد"]
+        df.replace(placeholders, pd.NA, inplace=True)
+        
+        df = df.dropna(axis=1, how="all")
+        
+        df = df.fillna("")
+        
+        st.dataframe(df, use_container_width=True)
+    else:
+        st.info("No leads captured yet.")
+
+
 def page_admin_cost():
     render_welcome_banner()
     st.title("Cost & Token Analytics (Monitor A)")
