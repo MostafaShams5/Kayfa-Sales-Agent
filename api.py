@@ -1,6 +1,5 @@
-from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Optional
 import os
 import time
 from datetime import datetime, timezone
