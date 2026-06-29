@@ -53,6 +53,13 @@ st.markdown("""
         .stChatMessage {
             direction: rtl;
         }
+        div[data-testid="stChatInput"] textarea {
+            direction: rtl;
+            text-align: right;
+        }
+        div[data-testid="stChatInput"] {
+            direction: rtl;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -287,7 +294,12 @@ def page_chat():
                         for part in msg.parts:
                             if part.part_kind == 'tool-call':
                                 args = part.args.args_dict if hasattr(part.args, 'args_dict') else str(part.args)
-                                tools_called.append({"tool": part.tool_name, "args": args})
+                                tools_called.append({"tool": part.tool_name, "args": args, "result": None})
+                            elif part.part_kind == 'tool-return':
+                                for t in reversed(tools_called):
+                                    if t["tool"] == part.tool_name and t["result"] is None:
+                                        t["result"] = str(part.content)
+                                        break
 
                 run_async(user_rag.save_interaction(st.session_state.user_id, prompt, final_response))
                 run_async(semantic_cache.set_cached_response(prompt, final_response, context_hash))
@@ -303,29 +315,55 @@ def page_chat():
                     tools_called=tools_called
                 ))
 
-def page_admin_crm():
+def page_admin_trace():
     render_welcome_banner()
-    st.title("CRM Leads Management Table")
-    leads = run_async(raw_db["leads"].find().sort("التاريخ", -1).to_list(length=100))
+    st.title("Behavior & Trace Monitor (Monitor B)")
     
-    if leads:
-        df = pd.json_normalize(leads)
-        df = df.drop(columns=["_id"], errors="ignore")
+    users = run_async(raw_db["users"].find().to_list(length=100))
+    if not users:
+        st.warning("No telemetry profiles isolated.")
+        return
         
-        # Aggressively target Arabic and English placeholder strings
-        placeholders = ["لا يوجد", "", "غير متوفر", "None", "N/A", "لايوجد"]
-        df.replace(placeholders, pd.NA, inplace=True)
-        
-        # Drop columns that are completely empty across all rows
-        df = df.dropna(axis=1, how="all")
-        
-        # Clean up remaining individual empty cells for display
-        df = df.fillna("")
-        
-        st.dataframe(df, use_container_width=True)
-    else:
-        st.info("No leads captured yet.")
-
+    tabs = st.tabs([u["username"] for u in users])
+    
+    for idx, user in enumerate(users):
+        with tabs[idx]:
+            logs = run_async(raw_db["usage_logs"].find({"user_id": user["user_id"]}).sort("timestamp", -1).to_list(length=1000))
+            if not logs:
+                st.info("No recorded context transitions for this identifier.")
+                continue
+                
+            user_total_cost = sum(log.get("cost_usd", {}).get("total", 0.0) for log in logs)
+            st.markdown(f"#### Total User Cost: ${user_total_cost:.5f}")
+            
+            sessions = {}
+            for log in logs:
+                sid = log.get("session_id", "Unknown")
+                if sid not in sessions:
+                    sessions[sid] = []
+                sessions[sid].append(log)
+                
+            for sid, session_logs in sessions.items():
+                session_cost = sum(l.get("cost_usd", {}).get("total", 0.0) for l in session_logs)
+                with st.expander(f"Session: {sid} | Cost: ${session_cost:.5f} | Messages: {len(session_logs)}"):
+                    for log in session_logs:
+                        is_hit = log.get("is_cache_hit", False)
+                        title_label = f"⚡ SEMANTIC CACHE HIT | {log['timestamp']}" if is_hit else f"Inference Roundtrip | {log['timestamp']}"
+                        
+                        st.markdown(f"**{title_label} | Msg Cost: ${log['cost_usd']['total']:.5f}**")
+                        st.markdown(f"**User Prompt:** <div class='rtl-text'>{log['behavior']['prompt_snippet']}</div>", unsafe_allow_html=True)
+                        st.markdown(f"**Agent Generation:** <div class='rtl-text'>{log['behavior']['response_snippet']}</div>", unsafe_allow_html=True)
+                        
+                        tools = log['behavior'].get('tools_called', [])
+                        if tools:
+                            for t in tools:
+                                st.markdown(f"- **Tool:** `{t.get('tool')}`")
+                                st.markdown(f"  - **Args:** `{t.get('args')}`")
+                                if t.get('result'):
+                                    st.markdown(f"  - **Output:** `{str(t.get('result'))[:400]}`")
+                                    
+                        st.caption(f"Latency: {log['metrics']['latency_ms']:.2f}ms | Tokens (In / Out / Embed): {log['metrics']['input_tokens']} / {log['metrics']['output_tokens']} / {log['metrics']['embed_tokens']}")
+                        st.divider()
 def page_admin_cost():
     render_welcome_banner()
     st.title("Cost & Token Analytics (Monitor A)")
