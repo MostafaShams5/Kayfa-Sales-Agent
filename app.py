@@ -327,13 +327,13 @@ def page_admin_trace():
     
     for idx, user in enumerate(users):
         with tabs[idx]:
-            logs = run_async(raw_db["usage_logs"].find({"user_id": user["user_id"]}).sort("timestamp", 1).to_list(length=1000))
+            logs = run_async(raw_db["usage_logs"].find({"user_id": user["user_id"]}).sort("timestamp", 1).to_list(length=10000))
             if not logs:
                 st.info("No recorded context transitions for this identifier.")
                 continue
                 
             user_total_cost = sum(log.get("cost_usd", {}).get("total", 0.0) for log in logs)
-            st.markdown(f"### Total Cost for User: ${user_total_cost:.5f}")
+            st.markdown(f"### 💰 Total Platform Spend for {user['username']}: **${user_total_cost:.5f}**")
             st.write("")
             
             sessions = {}
@@ -343,16 +343,29 @@ def page_admin_trace():
                     sessions[sid] = []
                 sessions[sid].append(log)
                 
+            session_counter = 1
             for sid, session_logs in sessions.items():
                 session_cost = sum(l.get("cost_usd", {}).get("total", 0.0) for l in session_logs)
                 
-                with st.expander(f"Conversation Session: {sid} | Total Session Cost: ${session_cost:.5f} | Total Messages: {len(session_logs)}", expanded=False):
+                start_time = session_logs[0].get("timestamp", "Unknown")
+                if hasattr(start_time, "strftime"):
+                    start_time = start_time.strftime("%Y-%m-%d %I:%M %p")
+                
+                expander_title = f"📁 Session {session_counter} (Started: {start_time}) | Total Session Cost: ${session_cost:.5f} | Messages: {len(session_logs)}"
+                
+                with st.expander(expander_title, expanded=False):
+                    st.caption(f"Internal Session ID: `{sid}`")
+                    
                     for i, log in enumerate(session_logs):
                         is_hit = log.get("is_cache_hit", False)
-                        hit_badge = "⚡ CACHE HIT" if is_hit else "🤖 LLM INFERENCE"
+                        hit_badge = "⚡ CACHE HIT (Free)" if is_hit else "🤖 LLM INFERENCE"
                         msg_cost = log.get("cost_usd", {}).get("total", 0.0)
                         
-                        st.markdown(f"**Turn {i+1} | {hit_badge} | Message Cost: ${msg_cost:.5f} | {log['timestamp']}**")
+                        msg_time = log.get("timestamp", "Unknown")
+                        if hasattr(msg_time, "strftime"):
+                            msg_time = msg_time.strftime("%I:%M:%S %p")
+                        
+                        st.markdown(f"**Turn {i+1}** | {hit_badge} | Cost: **${msg_cost:.5f}** | {msg_time}")
                         
                         with st.chat_message("user"):
                             st.markdown(f"<div class='rtl-text'>{log['behavior']['prompt_snippet']}</div>", unsafe_allow_html=True)
@@ -372,6 +385,8 @@ def page_admin_trace():
                                         
                         st.caption(f"Latency: {log['metrics']['latency_ms']:.2f}ms | Tokens (In/Out/Embed): {log['metrics']['input_tokens']} / {log['metrics']['output_tokens']} / {log['metrics']['embed_tokens']}")
                         st.markdown("---")
+                
+                session_counter += 1
 
 def page_admin_crm():
     render_welcome_banner()
