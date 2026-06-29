@@ -328,13 +328,14 @@ def page_admin_trace():
     
     for idx, user in enumerate(users):
         with tabs[idx]:
-            logs = run_async(raw_db["usage_logs"].find({"user_id": user["user_id"]}).sort("timestamp", -1).to_list(length=1000))
+            logs = run_async(raw_db["usage_logs"].find({"user_id": user["user_id"]}).sort("timestamp", 1).to_list(length=1000))
             if not logs:
                 st.info("No recorded context transitions for this identifier.")
                 continue
                 
             user_total_cost = sum(log.get("cost_usd", {}).get("total", 0.0) for log in logs)
-            st.markdown(f"#### Total User Cost: ${user_total_cost:.5f}")
+            st.markdown(f"### Total Cost for User: ${user_total_cost:.5f}")
+            st.write("")
             
             sessions = {}
             for log in logs:
@@ -345,26 +346,33 @@ def page_admin_trace():
                 
             for sid, session_logs in sessions.items():
                 session_cost = sum(l.get("cost_usd", {}).get("total", 0.0) for l in session_logs)
-                with st.expander(f"Session: {sid} | Cost: ${session_cost:.5f} | Messages: {len(session_logs)}"):
-                    for log in session_logs:
+                
+                with st.expander(f"Conversation Session: {sid} | Total Session Cost: ${session_cost:.5f} | Total Messages: {len(session_logs)}", expanded=False):
+                    for i, log in enumerate(session_logs):
                         is_hit = log.get("is_cache_hit", False)
-                        title_label = f"⚡ SEMANTIC CACHE HIT | {log['timestamp']}" if is_hit else f"Inference Roundtrip | {log['timestamp']}"
+                        hit_badge = "⚡ CACHE HIT" if is_hit else "🤖 LLM INFERENCE"
+                        msg_cost = log.get("cost_usd", {}).get("total", 0.0)
                         
-                        st.markdown(f"**{title_label} | Msg Cost: ${log['cost_usd']['total']:.5f}**")
-                        st.markdown(f"**User Prompt:** <div class='rtl-text'>{log['behavior']['prompt_snippet']}</div>", unsafe_allow_html=True)
-                        st.markdown(f"**Agent Generation:** <div class='rtl-text'>{log['behavior']['response_snippet']}</div>", unsafe_allow_html=True)
+                        st.markdown(f"**Turn {i+1} | {hit_badge} | Message Cost: ${msg_cost:.5f} | {log['timestamp']}**")
                         
-                        tools = log['behavior'].get('tools_called', [])
-                        if tools:
-                            for t in tools:
-                                st.markdown(f"- **Tool:** `{t.get('tool')}`")
-                                st.markdown(f"  - **Args:** `{t.get('args')}`")
-                                if t.get('result'):
-                                    st.markdown(f"  - **Output:** `{str(t.get('result'))[:400]}`")
-                                    
-                        st.caption(f"Latency: {log['metrics']['latency_ms']:.2f}ms | Tokens (In / Out / Embed): {log['metrics']['input_tokens']} / {log['metrics']['output_tokens']} / {log['metrics']['embed_tokens']}")
-                        st.divider()
-
+                        with st.chat_message("user"):
+                            st.markdown(f"<div class='rtl-text'>{log['behavior']['prompt_snippet']}</div>", unsafe_allow_html=True)
+                            
+                        with st.chat_message("assistant"):
+                            st.markdown(f"<div class='rtl-text'>{log['behavior']['response_snippet']}</div>", unsafe_allow_html=True)
+                            
+                            tools = log['behavior'].get('tools_called', [])
+                            if tools:
+                                with st.status("🛠️ System Tools Executed", expanded=False):
+                                    for t in tools:
+                                        st.markdown(f"**Tool:** `{t.get('tool')}`")
+                                        st.markdown(f"**Args:** `{t.get('args')}`")
+                                        if t.get('result'):
+                                            st.markdown(f"**Output:** `{str(t.get('result'))[:500]}`")
+                                        st.divider()
+                                        
+                        st.caption(f"Latency: {log['metrics']['latency_ms']:.2f}ms | Tokens (In/Out/Embed): {log['metrics']['input_tokens']} / {log['metrics']['output_tokens']} / {log['metrics']['embed_tokens']}")
+                        st.markdown("---")
 
 def page_admin_crm():
     render_welcome_banner()
