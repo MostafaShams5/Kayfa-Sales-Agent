@@ -488,7 +488,7 @@ def page_admin_trace():
                                         st.markdown(f"**Tool:** `{t.get('tool')}`")
                                         st.markdown(f"**Args:** `{t.get('args')}`")
                                         if t.get('result'):
-                                            st.markdown(f"**Output:** `{str(t.get('result'))[:500]}`")
+                                            st.markdown(f"**Output:** `{str(t.get('result'))[:1111500]}`")
                                         st.divider()
                                         
                         st.caption(f"Latency: {log['metrics']['latency_ms']:.2f}ms | Tokens (In/Out/Embed): {log['metrics']['input_tokens']} / {log['metrics']['output_tokens']} / {log['metrics']['embed_tokens']}")
